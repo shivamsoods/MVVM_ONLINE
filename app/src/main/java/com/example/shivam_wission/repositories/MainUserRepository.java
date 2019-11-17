@@ -20,10 +20,10 @@ public class MainUserRepository {
     private static String TAG = "USER REPO";
 
     private static MainUserRepository instance;
-    private MutableLiveData<List<FirebaseApiResponse>> LiveDataList = new MutableLiveData<>();
-    private ArrayList<FirebaseApiResponse> dataSet = new ArrayList<>();
 
-    public static MainUserRepository getInstance() {
+    private MutableLiveData<List<FirebaseApiResponse>> LiveDataList = new MutableLiveData<>();
+
+    public static synchronized MainUserRepository getInstance() {
         if (instance == null) {
             instance = new MainUserRepository();
         }
@@ -31,6 +31,7 @@ public class MainUserRepository {
     }
 
     public MutableLiveData<List<FirebaseApiResponse>> getMainUsers() {
+        final ArrayList<FirebaseApiResponse> dataSet = new ArrayList<>();
 
         LiveDataList.setValue(dataSet);
         RetrofitClient.getInstance()
@@ -47,9 +48,11 @@ public class MainUserRepository {
                             for (String userId : responseMap.keySet()) {
                                 firebaseApiResponse = responseMap.get(userId);
                                 dataSet.add(firebaseApiResponse);
+                                LiveDataList.postValue(dataSet);
                             }
-                            LiveDataList.setValue(dataSet);
+
                         }
+
                     }
                     @Override
                     public void onFailure(Call<Map<String, FirebaseApiResponse>> call, Throwable t) {

@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mRecyclerView = findViewById(R.id.rv_main);
-        mFab=findViewById(R.id.fab_main);
+        mFab = findViewById(R.id.fab_main);
 
         mMainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mMainViewModel.init();
@@ -41,19 +41,23 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(List<FirebaseApiResponse> firebaseApiResponses) {
                 mAdapter.notifyDataSetChanged();
 
+
             }
         });
         initRecyclerView();
-    mFab.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            startActivity(new Intent(getApplicationContext(),AddUserActivity.class));
-        }
-    });
+
+
+
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), AddUserActivity.class));
+            }
+        });
     }
 
     private void initRecyclerView() {
-        mAdapter = new MainRecyclerAdapter( mMainViewModel.getMainUsers().getValue());
+        mAdapter = new MainRecyclerAdapter(mMainViewModel.getMainUsers().getValue());
         RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
