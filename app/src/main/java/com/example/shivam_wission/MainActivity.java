@@ -6,11 +6,14 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.shivam_wission.adapters.MainRecyclerAdapter;
 import com.example.shivam_wission.models.FirebaseApiResponse;
 import com.example.shivam_wission.viewmodels.MainViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -19,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private MainRecyclerAdapter mAdapter;
     private MainViewModel mMainViewModel;
+    private FloatingActionButton mFab;
 
 
     @Override
@@ -27,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mRecyclerView = findViewById(R.id.rv_main);
+        mFab=findViewById(R.id.fab_main);
 
         mMainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mMainViewModel.init();
@@ -39,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         initRecyclerView();
+    mFab.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(getApplicationContext(),AddUserActivity.class));
+        }
+    });
     }
 
     private void initRecyclerView() {
