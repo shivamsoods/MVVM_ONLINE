@@ -7,6 +7,7 @@
     android:padding="15dp">
 
     <TextView
+        android:layout_gravity="center"
         android:id="@+id/tv_model_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,5 +33,10 @@
         android:text="Phone"
         android:textColor="#000"
         android:textSize="18sp" />
+    <LinearLayout
+        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#d3d3d3"/>
 
 </LinearLayout>

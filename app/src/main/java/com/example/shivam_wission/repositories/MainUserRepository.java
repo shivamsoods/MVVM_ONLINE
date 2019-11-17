@@ -2,6 +2,7 @@ package com.example.shivam_wission.repositories;
 
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.shivam_wission.models.FirebaseApiResponse;
@@ -16,6 +17,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainUserRepository {
+    private static String TAG = "USER REPO";
 
     private static MainUserRepository instance;
     private MutableLiveData<List<FirebaseApiResponse>> LiveDataList = new MutableLiveData<>();
@@ -29,28 +31,32 @@ public class MainUserRepository {
     }
 
     public MutableLiveData<List<FirebaseApiResponse>> getMainUsers() {
+
+        LiveDataList.setValue(dataSet);
         RetrofitClient.getInstance()
                 .getApi()
                 .getUserList()
-    .enqueue(new Callback<Map<String, FirebaseApiResponse>>() {
-        @Override
-        public void onResponse(Call<Map<String, FirebaseApiResponse>> call, Response<Map<String, FirebaseApiResponse>> response) {
-            final Map<String,FirebaseApiResponse> responseMap=response.body();
-            final FirebaseApiResponse firebaseApiResponse=responseMap.get("u1");
+                .enqueue(new Callback<Map<String, FirebaseApiResponse>>() {
+                    @Override
+                    public void onResponse(Call<Map<String, FirebaseApiResponse>> call, Response<Map<String, FirebaseApiResponse>> response) {
+                        final Map<String, FirebaseApiResponse> responseMap = response.body();
+                        FirebaseApiResponse firebaseApiResponse;
 
-            Log.d("USER REPO", "onResponse: "+firebaseApiResponse);
-            if(!responseMap.isEmpty()){
-                dataSet.add(firebaseApiResponse);
-                LiveDataList.setValue(dataSet);
-            }
+                        assert responseMap != null;
+                        if (!responseMap.isEmpty()) {
+                            for (String userId : responseMap.keySet()) {
+                                firebaseApiResponse = responseMap.get(userId);
+                                dataSet.add(firebaseApiResponse);
+                            }
+                            LiveDataList.setValue(dataSet);
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<Map<String, FirebaseApiResponse>> call, Throwable t) {
 
-        }
+                    }
+                });
 
-        @Override
-        public void onFailure(Call<Map<String, FirebaseApiResponse>> call, Throwable t) {
-            Log.d("USER REPO", "onFailure: "+t);
-        }
-    });
         return LiveDataList;
     }
 

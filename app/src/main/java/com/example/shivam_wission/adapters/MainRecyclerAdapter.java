@@ -17,13 +17,12 @@ import java.util.List;
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<FirebaseApiResponse> mUserObject;
-    private Context mContext;
+    private List<FirebaseApiResponse> mUserList;
 
 
-    public MainRecyclerAdapter(Context context, List<FirebaseApiResponse> MainUserObject) {
-        mContext=context;
-        mUserObject=MainUserObject;
+
+    public MainRecyclerAdapter(List<FirebaseApiResponse> MainUserList) {
+    mUserList=MainUserList;
     }
 
     @NonNull
@@ -36,7 +35,9 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
-        ((ViewHolder) viewHolder).mName.setText(mUserObject.get(i).getName());
+       ((ViewHolder) viewHolder).mName.setText(mUserList.get(i).getName());
+        ((ViewHolder) viewHolder).mEmail.setText(mUserList.get(i).getEmail());
+        ((ViewHolder) viewHolder).mPhone.setText(mUserList.get(i).getPhone());
 
 
 
@@ -44,7 +45,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        return mUserObject.size();
+     return mUserList.size();
+
     }
 
     private class ViewHolder extends RecyclerView.ViewHolder {
