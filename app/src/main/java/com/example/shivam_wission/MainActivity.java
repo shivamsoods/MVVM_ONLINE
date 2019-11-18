@@ -1,5 +1,6 @@
 package com.example.shivam_wission;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(List<FirebaseApiResponse> firebaseApiResponses) {
                 mMainViewModel.getMainUsers().getValue();
                 mAdapter.notifyDataSetChanged();
-
             }
         });
 
@@ -51,9 +51,19 @@ public class MainActivity extends AppCompatActivity {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), AddUserActivity.class));
-                finish();
+                startActivity(new Intent(MainActivity.this,AddUserActivity.class));
 
+            }
+        });
+
+        mAdapter.setOnItemClickListner(new MainRecyclerAdapter.onItemClickListner() {
+            @Override
+            public void onItemClick(FirebaseApiResponse firebaseApiResponse) {
+                Intent intent=new Intent(MainActivity.this,ViewUserActivity.class);
+                intent.putExtra("name",firebaseApiResponse.getName());
+                intent.putExtra("email",firebaseApiResponse.getEmail());
+                intent.putExtra("phone",firebaseApiResponse.getPhone());
+                startActivity(intent);
             }
         });
     }
@@ -62,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new MainRecyclerAdapter(mMainViewModel.getMainUsers().getValue());
         RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
     }
-
 
 }

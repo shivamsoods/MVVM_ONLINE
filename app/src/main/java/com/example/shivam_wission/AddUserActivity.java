@@ -33,6 +33,7 @@ public class AddUserActivity extends AppCompatActivity {
 
         btnSubmit = findViewById(R.id.btn_add_submit);
 
+        setTitle("Add User");
         mAddUserViewModel = ViewModelProviders.of(this).get(AddUserViewModel.class);
         mAddUserViewModel.init();
 
@@ -45,6 +46,7 @@ public class AddUserActivity extends AppCompatActivity {
                 phone = etPhone.getText().toString().trim();
 
                 Log.d("USER ACTIVITY", "onClick: " + name + email + phone);
+
                 JsonObject j = new JsonObject();
                 j.addProperty("name", name);
                 j.addProperty("email", email);
@@ -53,7 +55,7 @@ public class AddUserActivity extends AppCompatActivity {
 
                 if (checkText(name, email, phone)) {
                     mAddUserViewModel.addNewUser(j);
-                    //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
                 }
 

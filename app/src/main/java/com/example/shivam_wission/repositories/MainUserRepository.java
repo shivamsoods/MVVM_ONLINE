@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.shivam_wission.models.FirebaseApiResponse;
 import com.example.shivam_wission.network.RetrofitClient;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +29,7 @@ public class MainUserRepository {
         return instance;
     }
 
+
     public MutableLiveData<List<FirebaseApiResponse>> getMainUsers() {
         final ArrayList<FirebaseApiResponse> dataSet = new ArrayList<>();
 
@@ -48,12 +48,14 @@ public class MainUserRepository {
                             for (String userId : responseMap.keySet()) {
                                 firebaseApiResponse = responseMap.get(userId);
                                 dataSet.add(firebaseApiResponse);
-                                LiveDataList.postValue(dataSet);
                             }
+                            Log.d(TAG, "onResponse: getMainUser " + dataSet.size());
 
+                            LiveDataList.setValue(dataSet);
                         }
 
                     }
+
                     @Override
                     public void onFailure(Call<Map<String, FirebaseApiResponse>> call, Throwable t) {
 
@@ -62,5 +64,9 @@ public class MainUserRepository {
 
         return LiveDataList;
     }
+
+
+
+
 
 }
