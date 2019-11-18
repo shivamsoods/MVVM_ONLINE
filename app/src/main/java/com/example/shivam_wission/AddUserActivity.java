@@ -1,8 +1,5 @@
 package com.example.shivam_wission;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,8 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.example.shivam_wission.viewmodels.AddUserViewModel;
-import com.example.shivam_wission.viewmodels.MainViewModel;
 import com.google.gson.JsonObject;
 
 public class AddUserActivity extends AppCompatActivity {
@@ -33,6 +32,7 @@ public class AddUserActivity extends AppCompatActivity {
 
         btnSubmit = findViewById(R.id.btn_add_submit);
 
+
         mAddUserViewModel = ViewModelProviders.of(this).get(AddUserViewModel.class);
         mAddUserViewModel.init();
 
@@ -44,6 +44,7 @@ public class AddUserActivity extends AppCompatActivity {
             etName.setEnabled(false);
             etPhone.setEnabled(false);
             etEmail.setEnabled(false);
+            this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
             if (intent.hasExtra("name")) {
                 etName.setText(intent.getStringExtra("name"));
@@ -56,6 +57,8 @@ public class AddUserActivity extends AppCompatActivity {
             }
         } else {
             setTitle("Add User");
+            this.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
 
         }
 
