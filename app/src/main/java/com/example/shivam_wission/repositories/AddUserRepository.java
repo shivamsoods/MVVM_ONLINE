@@ -56,8 +56,7 @@ public class AddUserRepository {
     private String generateUserId(){
         Date dNow = new Date();
         SimpleDateFormat ft = new SimpleDateFormat("yyMMddhhmmssMs");
-        String datetime = ft.format(dNow);
 
-        return datetime;
+        return ft.format(dNow);
     }
 }

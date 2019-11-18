@@ -39,18 +39,21 @@ public class MainActivity extends AppCompatActivity {
         mMainViewModel.getMainUsers().observe(this, new Observer<List<FirebaseApiResponse>>() {
             @Override
             public void onChanged(List<FirebaseApiResponse> firebaseApiResponses) {
-                //mAdapter.notifyDataSetChanged();
-                initRecyclerView();
+                mMainViewModel.getMainUsers().getValue();
+                mAdapter.notifyDataSetChanged();
 
             }
         });
 
+        initRecyclerView();
 
 
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), AddUserActivity.class));
+                finish();
+
             }
         });
     }
@@ -61,4 +64,6 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
     }
+
+
 }

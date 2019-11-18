@@ -53,7 +53,7 @@ public class AddUserActivity extends AppCompatActivity {
 
                 if (checkText(name, email, phone)) {
                     mAddUserViewModel.addNewUser(j);
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    //startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
                 }
 
