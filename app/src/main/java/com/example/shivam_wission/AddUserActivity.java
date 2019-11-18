@@ -33,9 +33,31 @@ public class AddUserActivity extends AppCompatActivity {
 
         btnSubmit = findViewById(R.id.btn_add_submit);
 
-        setTitle("Add User");
         mAddUserViewModel = ViewModelProviders.of(this).get(AddUserViewModel.class);
         mAddUserViewModel.init();
+
+
+        Intent intent = getIntent();
+        if (intent.hasExtra("EXTRA_ID")) {
+            setTitle("View User");
+            btnSubmit.setVisibility(View.GONE);
+            etName.setEnabled(false);
+            etPhone.setEnabled(false);
+            etEmail.setEnabled(false);
+
+            if (intent.hasExtra("name")) {
+                etName.setText(intent.getStringExtra("name"));
+            }
+            if (intent.hasExtra("email")) {
+                etEmail.setText(intent.getStringExtra("email"));
+            }
+            if (intent.hasExtra("phone")) {
+                etPhone.setText(intent.getStringExtra("phone"));
+            }
+        } else {
+            setTitle("Add User");
+
+        }
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,11 +104,6 @@ public class AddUserActivity extends AppCompatActivity {
             return false;
         }
 
-        if (phone.length() != 10) {
-            etPhone.setError("Enter all Digits");
-            etPhone.requestFocus();
-            return false;
-        }
 
         if (email.isEmpty()) {
             etEmail.setError("Email is required");

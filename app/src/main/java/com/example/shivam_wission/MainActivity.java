@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListner(new MainRecyclerAdapter.onItemClickListner() {
             @Override
             public void onItemClick(FirebaseApiResponse firebaseApiResponse) {
-                Intent intent=new Intent(MainActivity.this,ViewUserActivity.class);
+                Intent intent=new Intent(MainActivity.this,AddUserActivity.class);
+                intent.putExtra("EXTRA_ID",467);
                 intent.putExtra("name",firebaseApiResponse.getName());
                 intent.putExtra("email",firebaseApiResponse.getEmail());
                 intent.putExtra("phone",firebaseApiResponse.getPhone());
