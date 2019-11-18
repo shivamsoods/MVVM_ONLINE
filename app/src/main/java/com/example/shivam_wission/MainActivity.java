@@ -39,12 +39,11 @@ public class MainActivity extends AppCompatActivity {
         mMainViewModel.getMainUsers().observe(this, new Observer<List<FirebaseApiResponse>>() {
             @Override
             public void onChanged(List<FirebaseApiResponse> firebaseApiResponses) {
-                mAdapter.notifyDataSetChanged();
-
+                //mAdapter.notifyDataSetChanged();
+                initRecyclerView();
 
             }
         });
-        initRecyclerView();
 
 
 

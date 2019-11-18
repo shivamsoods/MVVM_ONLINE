@@ -35,9 +35,11 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
-       ((ViewHolder) viewHolder).mName.setText(mUserList.get(i).getName());
-        ((ViewHolder) viewHolder).mEmail.setText(mUserList.get(i).getEmail());
-        ((ViewHolder) viewHolder).mPhone.setText(mUserList.get(i).getPhone());
+        FirebaseApiResponse firebaseApiResponse=mUserList.get(i);
+
+       ((ViewHolder) viewHolder).mName.setText(firebaseApiResponse.getName());
+        ((ViewHolder) viewHolder).mEmail.setText(firebaseApiResponse.getEmail());
+        ((ViewHolder) viewHolder).mPhone.setText(firebaseApiResponse.getPhone());
 
 
 
